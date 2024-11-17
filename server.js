@@ -11,14 +11,16 @@ app.post('/weight', (req, res) => {
   res.send('Weight data received');
 });
 
-// Endpoint to control servo motor
-app.post('/control-servo', (req, res) => {
-  const { action } = req.body; // e.g., 'dispense' or 'stop'
+// Endpoint to control the servo motor
+app.post('/dispense', (req, res) => {
+  const { action } = req.body; // e.g., 'start' or 'stop'
   console.log(`Servo action: ${action}`);
   res.send(`Servo action ${action} received`);
 });
 
+// Set the server to listen on the provided port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
