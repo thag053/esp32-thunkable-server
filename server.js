@@ -10,8 +10,10 @@ app.use(bodyParser.json());
 let currentWeight = null;
 let currentAction = null;
 
-// Endpoint to receive weight data from ESP32
+// Endpoint to receive weight data from ESP32 (POST)
 app.post('/weight', (req, res) => {
+  console.log("Received POST request for /weight");
+  
   const { weight } = req.body;
   
   if (weight == null) {
@@ -23,7 +25,7 @@ app.post('/weight', (req, res) => {
   res.send('Weight data received');
 });
 
-// Endpoint to retrieve the current weight (for Thunkable to get weight)
+// Endpoint to retrieve the current weight (GET for Thunkable to get weight)
 app.get('/weight', (req, res) => {
   console.log("Received GET request for /weight");
 
@@ -36,8 +38,10 @@ app.get('/weight', (req, res) => {
   res.json({ weight: currentWeight });
 });
 
-// Endpoint to control the servo motor (e.g., dispense or stop)
+// Endpoint to control the servo motor (POST for dispense or stop)
 app.post('/dispense', (req, res) => {
+  console.log("Received POST request for /dispense");
+  
   const { action } = req.body;
   
   if (!action) {
@@ -49,7 +53,7 @@ app.post('/dispense', (req, res) => {
   res.send(`Servo action ${action} received`);
 });
 
-// Endpoint to retrieve the current dispense action (for ESP32 to get the action)
+// Endpoint to retrieve the current dispense action (GET for ESP32 to get the action)
 app.get('/dispense', (req, res) => {
   console.log("Received GET request for /dispense");
 
@@ -62,7 +66,7 @@ app.get('/dispense', (req, res) => {
   res.json({ action: currentAction });
 });
 
-// Start the server
+// Get the port from the environment variable or default to 3000
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
