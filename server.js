@@ -25,9 +25,14 @@ app.post('/weight', (req, res) => {
 
 // Endpoint to retrieve the current weight (for Thunkable to get weight)
 app.get('/weight', (req, res) => {
+  console.log("Received GET request for /weight");
+
   if (currentWeight == null) {
+    console.log("No weight data available");
     return res.status(404).send("Error: Weight data not found.");
   }
+
+  console.log(`Sending weight: ${currentWeight}`);
   res.json({ weight: currentWeight });
 });
 
@@ -46,9 +51,14 @@ app.post('/dispense', (req, res) => {
 
 // Endpoint to retrieve the current dispense action (for ESP32 to get the action)
 app.get('/dispense', (req, res) => {
+  console.log("Received GET request for /dispense");
+
   if (currentAction == null) {
+    console.log("No dispense action found");
     return res.status(404).send("Error: No dispense action found.");
   }
+
+  console.log(`Sending action: ${currentAction}`);
   res.json({ action: currentAction });
 });
 
